@@ -1,0 +1,21 @@
+def checkValidString(s):
+    leftCount = 0
+    starCount = 0
+
+    for c in s:
+        if c == '(':
+            leftCount += 1
+        elif c == ')':
+            if leftCount > 0:
+                leftCount -= 1
+            elif starCount > 0:
+                starCount -= 1
+            else:
+                return False
+        elif c == '*':
+            starCount += 1
+
+    if leftCount > starCount + s.count('('):
+        return False
+
+    return True
