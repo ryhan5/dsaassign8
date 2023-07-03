@@ -1,0 +1,23 @@
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def buildTree(s, start, end):
+    if start > end:
+        return None
+
+    i = s.find("(", start, end)
+    j = s.find(")", i, end)
+
+    node_val = int(s[start:i]) if i != -1 else int(s[start:end+1])
+    node = TreeNode(node_val)
+
+    node.left = buildTree(s, i+1, j-1) if i != -1 else None
+    node.right = buildTree(s, j+2, end)
+
+    return node
+
+def constructTreeFromString(s):
+    return buildTree(s, 0, len(s) - 1)
