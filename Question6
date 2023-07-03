@@ -1,0 +1,23 @@
+from collections import Counter
+
+def findAnagrams(s, p):
+    pFreq = Counter(p)
+    windowFreq = Counter(s[:len(p)])
+    left = 0
+    right = len(p) - 1
+    result = []
+
+    while right < len(s):
+        if pFreq == windowFreq:
+            result.append(left)
+
+        windowFreq[s[left]] -= 1
+        if windowFreq[s[left]] == 0:
+            del windowFreq[s[left]]
+
+        left += 1
+        right += 1
+        if right < len(s):
+            windowFreq[s[right]] += 1
+
+    return result
