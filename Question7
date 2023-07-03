@@ -1,0 +1,21 @@
+def decodeString(s):
+    stack = []
+
+    for c in s:
+        if c != ']':
+            stack.append(c)
+        else:
+            curr = ""
+            while stack and stack[-1] != '[':
+                curr += stack.pop()
+            curr = curr[::-1]
+            stack.pop()  # Pop the '['
+
+            k = ""
+            while stack and stack[-1].isdigit():
+                k += stack.pop()
+            k = int(k)
+
+            stack.append(curr * k)
+
+    return ''.join(stack)
